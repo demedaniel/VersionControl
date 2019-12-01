@@ -25,7 +25,8 @@ namespace UserMaintenance
             listUsers.ValueMember = "ID";
             listUsers.DisplayMember = "FullName";
             button1.Text = Resource1.Add_to_File; //button2
-
+            button2.Text = Resource1.Delete;//button3
+            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -59,6 +60,12 @@ namespace UserMaintenance
             
 
             
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var torol = (User)listUsers.SelectedItem;
+            users.Remove(torol);
         }
     }
 }
