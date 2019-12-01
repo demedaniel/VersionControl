@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace UserMaintenance
             listUsers.DataSource = users;
             listUsers.ValueMember = "ID";
             listUsers.DisplayMember = "FullName";
-
+            button1.Text = Resource1.Add_to_File; //button2
 
         }
 
@@ -35,6 +36,29 @@ namespace UserMaintenance
               
             };
             users.Add(u);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sf = new SaveFileDialog();
+            sf.InitialDirectory = Application.StartupPath;
+            sf.Filter = "Comma Separated values (*.txt)|*.txt";
+            sf.DefaultExt = "txt";
+            sf.AddExtension = true;
+            if (sf.ShowDialog() != DialogResult.OK) return;
+            using (StreamWriter sw= new StreamWriter(sf.FileName, false,  Encoding.UTF8))
+            {
+                foreach (var u in users )
+                {
+                    sw.Write(u.FullName);
+                    sw.Write(";");
+                    sw.Write(value: u.ID);
+                    sw.WriteLine();
+                }
+            }
+            
+
+            
         }
     }
 }
